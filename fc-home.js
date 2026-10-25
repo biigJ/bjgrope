@@ -52,21 +52,19 @@
   var desktopPlaylist = [
     "/assets/bjgrope/IMG_8082.mov",
     "/assets/bjgrope/IMG_5284.MOV",
-    "/assets/bjgrope/biigJ-Danmark.MOV",
-    "/assets/bjgrope/biigJ-Situps.MOV",
-    "/assets/bjgrope/1EAEEA0D-408C-47A6-9D7A-284D294A5036.mp4",
     "/assets/bjgrope/ScreenRecording_03-20-2026 09-42-14_1.mov",
-    "/assets/bjgrope/6E7CB054-194B-43A7-AC54-A574538302C4.mp4",
+    "/assets/bjgrope/biigJ-Situps.MOV",
+    "/assets/bjgrope/biigJ-Danmark.MOV",
+    "/assets/bjgrope/1EAEEA0D-408C-47A6-9D7A-284D294A5036.mp4",
   ];
 
   var mobilePlaylist = [
     "/assets/bjgrope/mobile/IMG_8082.mp4",
     "/assets/bjgrope/mobile/IMG_5284.mp4",
-    "/assets/bjgrope/mobile/biigJ-Danmark.mp4",
-    "/assets/bjgrope/mobile/biigJ-Situps.mp4",
-    "/assets/bjgrope/mobile/1EAEEA0D-408C-47A6-9D7A-284D294A5036.mp4",
     "/assets/bjgrope/mobile/ScreenRecording_03-20-2026 09-42-14_1.mp4",
-    "/assets/bjgrope/mobile/6E7CB054-194B-43A7-AC54-A574538302C4.mp4",
+    "/assets/bjgrope/mobile/biigJ-Situps.mp4",
+    "/assets/bjgrope/mobile/biigJ-Danmark.mp4",
+    "/assets/bjgrope/mobile/1EAEEA0D-408C-47A6-9D7A-284D294A5036.mp4",
   ];
 
   function useMobilePlaylist() {
