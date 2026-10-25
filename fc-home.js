@@ -52,7 +52,7 @@
   var desktopPlaylist = [
     "/assets/bjgrope/IMG_8082.mov",
     "/assets/bjgrope/IMG_5284.MOV",
-    "/assets/bjgrope/ScreenRecording_03-20-2026 09-42-14_1.mov",
+    "/assets/bjgrope/ScreenRecording_03-20-2026 09-42-14_1.mp4",
     "/assets/bjgrope/biigJ-Situps.MOV",
     "/assets/bjgrope/biigJ-Danmark.MOV",
     "/assets/bjgrope/1EAEEA0D-408C-47A6-9D7A-284D294A5036.mp4",
@@ -181,6 +181,8 @@
     video.addEventListener("timeupdate", function () {
       if (slot !== frontSlot || crossfading) return;
       if (!video.duration || !isFinite(video.duration)) return;
+      // Ignore bogus short durations (some MOV/screen recordings report ~1s early).
+      if (video.duration < 1.5 || video.currentTime < 0.75) return;
       if (video.duration - video.currentTime <= 0.85) {
         crossfadeNext();
       }
