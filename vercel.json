@@ -1,4 +1,11 @@
 {
+  "redirects": [
+    {
+      "source": "/bjgrope.html",
+      "destination": "/",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
