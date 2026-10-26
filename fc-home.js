@@ -130,8 +130,8 @@
     window.setTimeout(finish, 4000);
   }
 
-  function assignSource(video, src) {
-    if (video.dataset.src === src) return;
+  function assignSource(video, src, forceReload) {
+    if (!forceReload && video.dataset.src === src) return;
     video.dataset.src = src;
     video.src = src;
     video.load();
@@ -143,9 +143,13 @@
 
   function playSlot(slot, index) {
     var video = videoAt(slot);
-    assignSource(video, playlist[index]);
+    // Always reload so currentTime resets; preloaded clips can keep stale state.
+    assignSource(video, playlist[index], true);
     return new Promise(function (resolve) {
       whenReady(video, function () {
+        try {
+          if (video.currentTime > 0.05) video.currentTime = 0;
+        } catch (e) {}
         tryPlay(video);
         resolve();
       });
@@ -181,8 +185,9 @@
     video.addEventListener("timeupdate", function () {
       if (slot !== frontSlot || crossfading) return;
       if (!video.duration || !isFinite(video.duration)) return;
-      // Ignore bogus short durations (some MOV/screen recordings report ~1s early).
-      if (video.duration < 1.5 || video.currentTime < 0.75) return;
+      // Some encodes briefly report a bogus short duration (~1s). Only start the
+      // early crossfade after a real stretch of playback and a sane duration.
+      if (video.duration < 2.5 || video.currentTime < 2) return;
       if (video.duration - video.currentTime <= 0.85) {
         crossfadeNext();
       }
