@@ -85,6 +85,9 @@
   var frontSlot = 0;
   var crossfading = false;
   var stalled = false;
+  // Must match .bjg-hero__video opacity transition in fc-home.css
+  var FADE_MS = 900;
+  var preloadTimer = null;
 
   function videoAt(slot) {
     return videos[slot];
@@ -156,22 +159,37 @@
     });
   }
 
+  function schedulePreload(slot, index) {
+    if (preloadTimer) {
+      window.clearTimeout(preloadTimer);
+      preloadTimer = null;
+    }
+    // Wait until the outgoing clip has fully faded out before swapping its src.
+    // Otherwise iPhone briefly shows the übernächste clip during the opacity fade.
+    preloadTimer = window.setTimeout(function () {
+      preloadTimer = null;
+      if (slot === frontSlot) return;
+      preloadSlot(slot, index);
+    }, FADE_MS + 50);
+  }
+
   function crossfadeNext() {
     if (crossfading) return;
     crossfading = true;
 
+    var outgoingSlot = frontSlot;
     var backSlot = 1 - frontSlot;
     var nextIndex = (currentIndex + 1) % playlist.length;
 
     playSlot(backSlot, nextIndex).then(function () {
       setActive(backSlot);
       try {
-        videoAt(frontSlot).pause();
+        videoAt(outgoingSlot).pause();
       } catch (e) {}
       frontSlot = backSlot;
       currentIndex = nextIndex;
       crossfading = false;
-      preloadSlot(1 - frontSlot, (currentIndex + 1) % playlist.length);
+      schedulePreload(outgoingSlot, (currentIndex + 1) % playlist.length);
     });
   }
 
@@ -203,7 +221,7 @@
       if (slot !== frontSlot || crossfading) return;
       currentIndex = (currentIndex + 1) % playlist.length;
       playSlot(frontSlot, currentIndex).then(function () {
-        preloadSlot(1 - frontSlot, (currentIndex + 1) % playlist.length);
+        schedulePreload(1 - frontSlot, (currentIndex + 1) % playlist.length);
       });
     });
   });
