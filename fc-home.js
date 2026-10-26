@@ -50,11 +50,11 @@
   if (videos.length < 2) return;
 
   var desktopPlaylist = [
-    "/assets/bjgrope/IMG_8082.mov",
-    "/assets/bjgrope/IMG_5284.MOV",
+    "/assets/bjgrope/IMG_8082.mp4",
+    "/assets/bjgrope/IMG_5284.mp4",
     "/assets/bjgrope/ScreenRecording_03-20-2026 09-42-14_1.mp4",
-    "/assets/bjgrope/biigJ-Situps.MOV",
-    "/assets/bjgrope/biigJ-Danmark.MOV",
+    "/assets/bjgrope/biigJ-Situps.mp4",
+    "/assets/bjgrope/biigJ-Danmark.mp4",
     "/assets/bjgrope/1EAEEA0D-408C-47A6-9D7A-284D294A5036.mp4",
   ];
 
